@@ -1,9 +1,9 @@
 <!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Riamo Météo</title>
+<title>Riamo Météo</title><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon.svg" type="image/svg+xml"><meta name="theme-color" content="#071a2e">
 <link href="https://fonts.googleapis.com/css2?family=Iceberg&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css"></head>
-<body><main><h1>🌦️ Riamo Météo</h1>
+<body><main><h1><img src="icon.svg" width="80" height="80" alt=""><br>Riamo Météo</h1>
 <form id="f"><input id="q" placeholder="Ville, pays..." autocomplete="off"><button>OK</button></form>
 <div id="sug"></div>
 <div class="bar"><button id="loc">📍 Ma position</button><button id="unit">°C / °F</button></div>
@@ -13,4 +13,4 @@
 <section class="card"><h3>7 jours</h3><div id="days"></div></section>
 <section class="card" id="aq"></section>
 <section class="card"><h3>⭐ Favoris</h3><div id="favs"></div><button id="addfav">Ajouter cette ville</button></section>
-</main><script src="app.js"></script></body></html>
+</main><script src="app.js"></script><script>if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js")</script></body></html>
