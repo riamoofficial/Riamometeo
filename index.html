@@ -1,10 +1,16 @@
 <!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Riamo Météo</title><link rel="stylesheet" href="style.css"></head>
+<title>Riamo Météo</title>
+<link href="https://fonts.googleapis.com/css2?family=Iceberg&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css"></head>
 <body><main><h1>🌦️ Riamo Météo</h1>
-<form id="f"><input id="q" placeholder="Rechercher une ville" autocomplete="off"><button>OK</button></form>
-<button id="loc">📍 Ma position</button>
+<form id="f"><input id="q" placeholder="Ville, pays..." autocomplete="off"><button>OK</button></form>
+<div id="sug"></div>
+<div class="bar"><button id="loc">📍 Ma position</button><button id="unit">°C / °F</button></div>
 <section class="card" id="now">Chargement…</section>
+<section class="card" id="det"></section>
 <section class="card"><h3>Prochaines heures</h3><div id="hours" class="scroll"></div></section>
 <section class="card"><h3>7 jours</h3><div id="days"></div></section>
+<section class="card" id="aq"></section>
+<section class="card"><h3>⭐ Favoris</h3><div id="favs"></div><button id="addfav">Ajouter cette ville</button></section>
 </main><script src="app.js"></script></body></html>
