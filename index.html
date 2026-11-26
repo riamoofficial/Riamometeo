@@ -1,36 +1,10 @@
-<!DOCTYPE html>
-<html lang="fr"><head><meta charset="UTF-8">
+<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Riamo Météo</title>
-<style>
-body{margin:0;font-family:sans-serif;background:#0b1d33;color:#fff;text-align:center;padding:16px}
-h1{color:#4fc3f7}
-form{display:flex;gap:8px;max-width:420px;margin:0 auto 16px}
-input{flex:1;padding:12px;border-radius:10px;border:0;font-size:16px}
-button{padding:12px 16px;border-radius:10px;border:0;background:#4fc3f7;font-weight:bold}
-.card{background:#12345a;border-radius:16px;padding:18px;max-width:420px;margin:12px auto}
-.t{font-size:56px;font-weight:bold}
-.row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #1d4a7a}
-</style></head><body>
-<h1>Riamo Météo</h1>
-<form id="f"><input id="q" placeholder="Rechercher une ville"><button>OK</button></form>
-<div class="card" id="c">Chargement...</div>
-<div class="card" id="d"></div>
-<script>
-function w(c){if(c==0)return"Ciel dégagé ☀️";if(c<3)return"Peu nuageux 🌤️";if(c==3)return"Couvert ☁️";if(c<50)return"Brouillard 🌫️";if(c<60)return"Bruine 🌦️";if(c<70)return"Pluie 🌧️";if(c<80)return"Neige ❄️";if(c<90)return"Averses 🌦️";return"Orage ⛈️"}
-async function load(lat,lon,name){
-try{
-const r=await fetch("https://api.open-meteo.com/v1/forecast?latitude="+lat+"&longitude="+lon+"&current=temperature_2m,apparent_temperature,relative_humidity_2m,wind_speed_10m,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=auto");
-const j=await r.json(),n=j.current;
-c.innerHTML="<h2>"+name+"</h2><div class='t'>"+Math.round(n.temperature_2m)+"°C</div><div>"+w(n.weather_code)+"</div><p>Ressenti "+Math.round(n.apparent_temperature)+"° · Humidité "+n.relative_humidity_2m+"% · Vent "+Math.round(n.wind_speed_10m)+" km/h</p>";
-const D=j.daily;d.innerHTML="<b>7 prochains jours</b>";
-for(let i=0;i<D.time.length;i++){const dt=new Date(D.time[i]).toLocaleDateString("fr-FR",{weekday:"short",day:"numeric"});
-d.innerHTML+="<div class='row'><span>"+dt+"</span><span>"+w(D.weather_code[i])+"</span><span>"+Math.round(D.temperature_2m_min[i])+"° / "+Math.round(D.temperature_2m_max[i])+"°</span></div>"}
-}catch(e){c.textContent="Erreur de chargement. Vérifiez la connexion."}}
-f.onsubmit=async e=>{e.preventDefault();
-const r=await fetch("https://geocoding-api.open-meteo.com/v1/search?count=1&language=fr&name="+encodeURIComponent(q.value));
-const j=await r.json();
-if(j.results){const p=j.results[0];load(p.latitude,p.longitude,p.name+", "+(p.country||""))}else c.textContent="Ville introuvable."};
-if(navigator.geolocation)navigator.geolocation.getCurrentPosition(p=>load(p.coords.latitude,p.coords.longitude,"Ma position"),()=>load(48.85,2.35,"Paris"));
-else load(48.85,2.35,"Paris");
-</script></body></html>
+<title>Riamo Météo</title><link rel="stylesheet" href="style.css"></head>
+<body><main><h1>🌦️ Riamo Météo</h1>
+<form id="f"><input id="q" placeholder="Rechercher une ville" autocomplete="off"><button>OK</button></form>
+<button id="loc">📍 Ma position</button>
+<section class="card" id="now">Chargement…</section>
+<section class="card"><h3>Prochaines heures</h3><div id="hours" class="scroll"></div></section>
+<section class="card"><h3>7 jours</h3><div id="days"></div></section>
+</main><script src="app.js"></script></body></html>
