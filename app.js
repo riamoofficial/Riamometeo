@@ -36,3 +36,24 @@ let dp;
 window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();dp=e});
 $("install").onclick=async()=>{if(dp){dp.prompt();await dp.userChoice;dp=null}else alert("Pour installer : menu ⋮ de Chrome, puis Installer l’application ou Ajouter à l’écran d’accueil.")};
 if(matchMedia("(display-mode: standalone)").matches)$("install").style.display="none";
+let outT=null,lastK="";
+function indoor(){let s={};try{s=JSON.parse(localStorage.indoor||"{}")}catch(e){}
+ if(s.t)$("it").value=s.t;if(s.h)$("ih").value=s.h;
+ const t=parseFloat(s.t),h=parseFloat(s.h),m=[];
+ if(!isNaN(t)){m.push(t<18?"🥶 Trop froid : chauffez un peu":t>25?"🥵 Trop chaud : aérez ou ventilez":"✅ Température confortable");if(outT!==null)m.push("Dehors : "+Math.round(outT)+"° (écart "+Math.round(t-outT)+"°)")}
+ if(!isNaN(h))m.push(h<40?"🏜️ Air sec : un bol d'eau près du radiateur aide":h>60?"💧 Trop humide : aérez 10 minutes":"✅ Humidité idéale");
+ $("imsg").innerHTML=m.join("<br>")}
+$("isave").onclick=()=>{localStorage.indoor=JSON.stringify({t:$("it").value,h:$("ih").value});indoor()};
+function moon(){const P=29.530588,d=Date.now()/864e5+2440587.5-2451550.26,p=((d%P)+P)%P;
+ const e=["🌑","🌒","🌓","🌔","🌕","🌖","🌗","🌘"][Math.round(p/P*8)%8],il=Math.round((1-Math.cos(2*Math.PI*p/P))/2*100);
+ $("moon").innerHTML="<div class='big'>"+e+"</div>Illuminée à "+il+"%"}
+async function extra(){try{
+ const j=await(await fetch("https://api.open-meteo.com/v1/forecast?latitude="+cur.lat+"&longitude="+cur.lon+"&current=temperature_2m,apparent_temperature,wind_speed_10m,uv_index&daily=precipitation_probability_max&timezone=auto")).json();
+ const n=j.current,a=n.apparent_temperature,r=j.daily.precipitation_probability_max[0],L=[];outT=n.temperature_2m;
+ L.push(a<=0?"🧥 Très froid : manteau, gants, bonnet":a<=8?"🧥 Froid : manteau chaud":a<=15?"🧥 Frais : veste":a<=22?"👕 Doux : pull léger":a<=28?"👕 Chaud : t-shirt":"🥵 Très chaud : vêtements légers, buvez de l'eau");
+ if(r>=50)L.push("☔ Parapluie conseillé ("+r+"% de pluie)");
+ if(n.uv_index>=6)L.push("🧴 UV forts : crème solaire et lunettes");
+ if(n.wind_speed_10m>=40)L.push("🌬️ Vent fort : coupe-vent");
+ $("adv").innerHTML=L.join("<br>");indoor()}catch(e){$("adv").textContent="Indisponible"}}
+setInterval(()=>{const k=cur.lat+","+cur.lon;if(cur.lat&&k!=lastK){lastK=k;extra()}},1000);
+indoor();moon();
