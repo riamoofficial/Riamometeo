@@ -32,3 +32,7 @@ $("unit").onclick=()=>{F=!F;localStorage.u=F?"F":"C";load(cur.lat,cur.lon,cur.na
 function gps(){if(!navigator.geolocation)return load(48.85,2.35,"Paris");
  navigator.geolocation.getCurrentPosition(p=>load(p.coords.latitude,p.coords.longitude,"Ma position"),()=>load(48.85,2.35,"Paris"),{enableHighAccuracy:true,timeout:10000})}
 $("loc").onclick=gps;drawFavs();gps();
+let dp;
+window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();dp=e});
+$("install").onclick=async()=>{if(dp){dp.prompt();await dp.userChoice;dp=null}else alert("Pour installer : menu ⋮ de Chrome, puis Installer l’application ou Ajouter à l’écran d’accueil.")};
+if(matchMedia("(display-mode: standalone)").matches)$("install").style.display="none";
