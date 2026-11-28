@@ -57,3 +57,7 @@ async function extra(){try{
  $("adv").innerHTML=L.join("<br>");indoor()}catch(e){$("adv").textContent="Indisponible"}}
 setInterval(()=>{const k=cur.lat+","+cur.lon;if(cur.lat&&k!=lastK){lastK=k;extra()}},1000);
 indoor();moon();
+$("theme").onclick=()=>{const l=document.documentElement.classList.toggle("light");try{localStorage.theme=l?"light":"dark"}catch(e){}};
+$("share").onclick=async()=>{const d={title:"Riamo Météo",text:(cur.name||"")+" – Riamo Météo",url:location.href};try{if(navigator.share)await navigator.share(d);else{await navigator.clipboard.writeText(d.url);alert("OK")}}catch(e){}};
+let rk="";
+setInterval(()=>{const k=cur.lat+","+cur.lon;if(cur.lat&&k!=rk){rk=k;$("radar").src="https://embed.windy.com/embed2.html?lat="+cur.lat+"&lon="+cur.lon+"&zoom=7&level=surface&overlay=radar&product=radar&menu=&message=&marker=true&calendar=now&type=map&location=coordinates&detail=&metricWind=km%2Fh&metricTemp=%C2%B0C&radarRange=-1"}},1500);

@@ -62,6 +62,11 @@ const D=[
 ["UV forts : crème solaire et lunettes","Strong UV: sunscreen and sunglasses","أشعة UV قوية: كريم واقٍ ونظارات","UV fuerte: protector solar y gafas","UV forti: crema solare e occhiali","Starke UV-Strahlung: Sonnencreme und Sonnenbrille","UV forte: protetor solar e óculos"],
 ["Vent fort : coupe-vent","Strong wind: windbreaker","رياح قوية: سترة واقية من الرياح","Viento fuerte: cortavientos","Vento forte: giacca antivento","Starker Wind: Windjacke","Vento forte: corta-vento"]
 ];
+D.push(
+["Radar de pluie","Rain radar","رادار المطر","Radar de lluvia","Radar della pioggia","Regenradar","Radar de chuva"],
+["Thème","Theme","المظهر","Tema","Tema","Design","Tema"],
+["Partager","Share","مشاركة","Compartir","Condividi","Teilen","Compartilhar"]
+);
 const M={};D.forEach(r=>M[r[0]]=r);
 const RX=new RegExp(D.map(r=>r[0]).sort((a,b)=>b.length-a.length).map(s=>s.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")).join("|"),"g");
 const tx=(s,i)=>s.replace(RX,m=>M[m][i]);
