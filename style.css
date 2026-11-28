@@ -29,3 +29,6 @@ iframe{width:100%;height:320px;border:0;border-radius:12px}
 .light .bar button,.light #favs button,.light #ble,.light #lang{background:#d5ebfb;color:#0b1d33}
 .light a{color:#0a5a8a}
 .light .row{border-color:#b9daf2}
+#cb{position:fixed;left:8px;right:8px;bottom:8px;z-index:99;background:#0d2a4a;color:#fff;border:1px solid #7fe3ff;border-radius:14px;padding:12px;text-align:center}
+#cb p{margin:0 0 8px;font-size:15px}
+#cb button{margin:0 4px}

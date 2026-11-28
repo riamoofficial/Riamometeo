@@ -1,10 +1,12 @@
 /*
-  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://api.open-meteo.com https://geocoding-api.open-meteo.com https://air-quality-api.open-meteo.com https://api.bigdatacloud.net; manifest-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-src https://embed.windy.com; frame-ancestors 'none'; upgrade-insecure-requests
   Strict-Transport-Security: max-age=31536000; includeSubDomains
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
-  Referrer-Policy: no-referrer
-  Cross-Origin-Opener-Policy: same-origin
+  Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: geolocation=(self), camera=(), microphone=(), payment=()
+/
+  Content-Security-Policy: default-src 'self'; script-src 'self' https:; style-src 'self' 'unsafe-inline' https:; font-src https: data:; img-src 'self' data: https:; connect-src 'self' https:; frame-src https:; manifest-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'
+/index.html
+  Content-Security-Policy: default-src 'self'; script-src 'self' https:; style-src 'self' 'unsafe-inline' https:; font-src https: data:; img-src 'self' data: https:; connect-src 'self' https:; frame-src https:; manifest-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'
 /sw.js
   Cache-Control: no-cache
